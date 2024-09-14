@@ -9,7 +9,7 @@
  {
    "remote"      : "github",
    "repository"  : "onclite/android_vendor_xiaomi_onclite",
-   "branch"      : "lineage-21.0",
+   "branch"      : "lineage-22.0",
    "clone-depth" : "1",
    "target_path" : "vendor/xiaomi/onclite"
  },

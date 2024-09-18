@@ -222,22 +222,6 @@
     in hardware. -->
     <bool name="config_setColorTransformAccelerated">true</bool>
 
-    <!-- Default list of files pinned by the Pinner Service -->
-    <string-array translatable="false" name="config_defaultPinnerServiceFiles">
-        <item>/system/bin/surfaceflinger</item>
-        <item>/system/framework/framework.jar</item>
-        <item>/system/framework/services.jar</item>
-        <item>/system/lib64/libRScpp.so</item>
-        <item>/system/lib64/libRS.so</item>
-        <item>/system/lib64/libRS_internal.so</item>
-        <item>/system/lib64/libbcinfo.so</item>
-        <item>/system/lib64/libRSDriver.so</item>
-        <item>/system/lib64/libRSCpuRef.so</item>
-        <item>/system/lib64/libblas.so</item>
-        <item>/apex/com.android.art/javalib/core-oj.jar</item>
-        <item>/apex/com.android.art/javalib/core-libart.jar</item>
-    </string-array>
-
     <!-- Flag indicating whether we should enable smart battery. -->
     <bool name="config_smart_battery_available">true</bool>
 

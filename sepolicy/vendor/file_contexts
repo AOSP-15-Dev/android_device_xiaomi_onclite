@@ -19,6 +19,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.light-service\.xiaomi                              u:object_r:hal_light_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.biometrics\.fingerprint@2\.3-service\.xiaomi       u:object_r:hal_fingerprint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/vendor\.lineage\.livedisplay@2\.0-service\.xiaomi_onc                 u:object_r:hal_lineage_livedisplay_qti_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.dumpstate-service\.onclite                         u:object_r:hal_dumpstate_default_exec:s0
 
 # Input devices
 /(vendor|system/vendor)/usr/idc(/.*)?                         u:object_r:idc_file:s0
@@ -39,3 +40,8 @@
 # LEDS
 /sys/devices(/platform)?/soc/78b6000\.i2c/i2c-2/2-[0-9a-f]+/leds(/.*)?     u:object_r:sysfs_leds:s0
 /sys/devices(/platform)?/soc/leds-qpnp-[0-9]+/leds(/.*)?                   u:object_r:sysfs_leds:s0
+
+# Data files
+/(vendor|system/vendor)/bin/init\.dump_early_dmesg\.sh                                       u:object_r:init_vendor_dmesg_exec:s0
+/sys/devices(/platform)?/soc/[a-f0-9]+.sdhci/mmc_host/mmc[0-9]/mmc0:[0-9]+(/.*)?             u:object_r:sysfs_mmc_host:s0
+/data/vendor/dmesg(/.*)?                                                                     u:object_r:vendor_dmesg_data_file:s0

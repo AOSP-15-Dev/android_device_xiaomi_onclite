@@ -12,6 +12,10 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # All components inherited here go to system image
 #
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_system.mk)
+PRODUCT_USE_DYNAMIC_PARTITIONS := false
+PRODUCT_RETROFIT_DYNAMIC_PARTITIONS := false
+PRODUCT_USE_DYNAMIC_PARTITION_SIZE := false
+PRODUCT_BUILD_SUPER_PARTITION := false
 
 #
 # All components inherited here go to system_ext image

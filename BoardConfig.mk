@@ -191,6 +191,7 @@ TARGET_RELEASETOOLS_EXTENSIONS := $(DEVICE_PATH)/platform/releasetools
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
+include device/lineage/sepolicy/common/sepolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 ifneq ($(TARGET_BUILD_VARIANT),user)

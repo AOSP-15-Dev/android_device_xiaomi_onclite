@@ -14,8 +14,6 @@ TARGET_BOARD_PLATFORM := msm8953
 
 TARGET_BOARD_SUFFIX := _64
 
-PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
-
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
 $(call inherit-product, vendor/xiaomi/onclite/onclite-vendor.mk)

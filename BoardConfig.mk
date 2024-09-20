@@ -52,6 +52,7 @@ BOARD_KERNEL_CMDLINE += loop.max_part=7
 
 # Kernel (Android 14+ Command-line Parameters)
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/7824900.sdhci
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Kernel (Compiler)
 TARGET_KERNEL_CLANG_VERSION := proton
@@ -143,6 +144,7 @@ TARGET_INIT_VENDOR_LIB := //$(DEVICE_PATH):init_onclite
 TARGET_RECOVERY_DEVICE_MODULES := init_onclite
 
 # Partitions
+AB_OTA_UPDATER := false
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864

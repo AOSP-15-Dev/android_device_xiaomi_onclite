@@ -52,7 +52,6 @@ BOARD_KERNEL_CMDLINE += loop.max_part=7
 
 # Kernel (Android 14+ Command-line Parameters)
 BOARD_KERNEL_CMDLINE += androidboot.boot_devices=soc/7824900.sdhci
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Kernel (Compiler)
 TARGET_KERNEL_CLANG_VERSION := proton

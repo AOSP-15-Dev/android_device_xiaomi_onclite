@@ -40,7 +40,6 @@ $(call inherit-product, device/xiaomi/onclite/device.mk)
 
 # Inherit some common AOSP stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
-WITH_GMS := false
 
 # Device identifier. This must come after all inclusions.
 PRODUCT_NAME := aosp_onclite

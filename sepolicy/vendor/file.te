@@ -27,6 +27,3 @@ type netmgr_data_file, file_type, data_file_type;
 
 # SDHCI
 type sysfs_kernel_sdhci_msm, fs_type, sysfs_type;
-
-# Dmesg
-type vendor_dmesg_data_file, file_type, data_file_type;

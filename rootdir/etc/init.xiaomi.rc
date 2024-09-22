@@ -35,10 +35,6 @@ on boot
     chmod 0660 /sys/devices/platform/soc/soc:fpc1020/fingerdown_wait
 
 on post-fs-data
-    # Dumpstate
-    mkdir /data/vendor/dmesg 0755 system system
-
-    # Fingerprint
     mkdir /data/vendor/goodix 0770 system system
     mkdir /data/vendor/fpc 0770 system system
     mkdir /data/vendor/gxfp 0770 system system
@@ -49,18 +45,6 @@ on post-fs-data
     mkdir /data/gxfp 0700 system system
     mkdir /data/system/fingerprint 0700 system system
 
-# Dumpstate
-service vendor.dump_early_dmesg /vendor/bin/init.dump_early_dmesg.sh
-    class late_start
-    user system
-    group system
-    oneshot
-    disabled
-
-on property:sys.bootstat.first_boot_completed=1
-    start vendor.dump_early_dmesg
-
-# Fingerprint
 on property:ro.boot.fpsensor=goodix
     setprop sys.fp.vendor goodix
     setprop persist.sys.fp.vendor goodix

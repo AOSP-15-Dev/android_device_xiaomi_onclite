@@ -39,6 +39,7 @@ PRODUCT_PACKAGES += \
     VendorResOnc
 
 PRODUCT_PACKAGES += ApertureResOnc
+PRODUCT_PACKAGES += FrameworksResAOSP
 
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v33/arm64/arch-arm-armv8-a/shared/vndk-sp/libutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib/libutils-v33.so \

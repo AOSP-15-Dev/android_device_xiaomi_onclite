@@ -131,6 +131,7 @@ TARGET_NO_RPC := true
 # HIDL
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(DEVICE_PATH)/framework_compatibility_matrix.xml \
+    $(DEVICE_PATH)/aosp_hardware_radio_config.xml \
     hardware/xiaomi/vintf/xiaomi_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml

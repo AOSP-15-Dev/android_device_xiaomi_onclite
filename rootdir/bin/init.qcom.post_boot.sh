@@ -616,6 +616,20 @@ function disable_core_ctl() {
     fi
 }
 
+function enable_swap() {
+if [ ! -f /data/vendor/swap/swapfile ]; then
+    dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=1024
+else
+    current_size=$(du -m /data/vendor/swap/swapfile | cut -f1)
+    if [ "$current_size" -ne 1024 ]; then
+        rm -f /data/vendor/swap/swapfile
+        dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=1024
+    fi
+fi
+    chmod 660 /data/vendor/swap/swapfile
+    mkswap /data/vendor/swap/swapfile
+}
+
 function configure_memory_parameters() {
     # Set Memory parameters.
     #
@@ -750,23 +764,9 @@ else
     echo 1 > /proc/sys/vm/watermark_scale_factor
 
     configure_read_ahead_kb_values
+
+    enable_swap
 fi
-}
-
-function enable_memory_features()
-{
-    MemTotalStr=`cat /proc/meminfo | grep MemTotal`
-    MemTotal=${MemTotalStr:16:8}
-
-    if [ $MemTotal -le 2097152 ]; then
-        #Enable B service adj transition for 2GB or less memory
-        setprop ro.vendor.qti.sys.fw.bservice_enable true
-        setprop ro.vendor.qti.sys.fw.bservice_limit 5
-        setprop ro.vendor.qti.sys.fw.bservice_age 5000
-
-        #Enable Delay Service Restart
-        setprop ro.vendor.qti.am.reschedule_service true
-    fi
 }
 
 function start_hbtp()
@@ -1935,8 +1935,6 @@ case "$target" in
 
             ;;
         esac
-        #Enable Memory Features
-        enable_memory_features
         restorecon -R /sys/devices/system/cpu
     ;;
 esac
@@ -2277,7 +2275,6 @@ case "$target" in
                 echo "4-7" > /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_cluster
             fi
             echo 1 > /sys/module/big_cluster_min_freq_adjust/parameters/min_freq_adjust
-
             ;;
         esac
     ;;
@@ -4161,7 +4158,6 @@ case "$target" in
 
             # Turn on sleep modes.
             echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
-            echo 100 > /proc/sys/vm/swappiness
             ;;
         esac
     ;;
@@ -4715,7 +4711,7 @@ case "$target" in
 	echo N > /sys/module/lpm_levels/L3/l3-dyn-ret/idle_enabled
         # Turn on sleep modes.
         echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
-	echo 100 > /proc/sys/vm/swappiness
+
 	echo 120 > /proc/sys/vm/watermark_scale_factor
     ;;
 esac

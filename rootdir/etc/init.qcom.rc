@@ -582,19 +582,8 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     disabled
     oneshot
 
-service enable_swap /vendor/bin/swapon /data/vendor/swap/swapfile
-    class late_start
-    user root
-    group root system
-    disabled
-    oneshot
-
 on property:sys.boot_completed=1
     start qcom-post-boot
-    start enable_swap
-
-    setprop ro.vendor.qti.config.swap true
-    setprop persist.vendor.swapfile_enable true
 
 service vendor.ril-daemon /vendor/bin/hw/rild
     override

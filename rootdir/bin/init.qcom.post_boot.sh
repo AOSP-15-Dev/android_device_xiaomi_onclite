@@ -618,16 +618,20 @@ function disable_core_ctl() {
 
 function enable_swap() {
 if [ ! -f /data/vendor/swap/swapfile ]; then
-    dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=1024
+    dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=2048
 else
     current_size=$(du -m /data/vendor/swap/swapfile | cut -f1)
-    if [ "$current_size" -ne 1024 ]; then
+    if [ "$current_size" -ne 2048 ]; then
         rm -f /data/vendor/swap/swapfile
-        dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=1024
+        dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=2048
     fi
 fi
     chmod 660 /data/vendor/swap/swapfile
     mkswap /data/vendor/swap/swapfile
+    swapon /data/vendor/swap/swapfile
+    setprop ro.vendor.qti.config.swap true
+    setprop persist.vendor.swapfile_enable true
+
 }
 
 function configure_memory_parameters() {

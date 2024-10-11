@@ -27,6 +27,8 @@ PRODUCT_SOONG_NAMESPACES += hardware/xiaomi
 # Overlays
 PRODUCT_ENFORCE_RRO_TARGETS := *
 
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay-aosp
+
 PRODUCT_PACKAGES += \
     FrameworksResOnc \
     SystemUIResOnc \
@@ -37,9 +39,6 @@ PRODUCT_PACKAGES += \
     WifiOverlayOnc \
     TetherResOnc \
     VendorResOnc
-
-PRODUCT_PACKAGES += ApertureResOnc
-PRODUCT_PACKAGES += FrameworksResAOSP
 
 PRODUCT_COPY_FILES += \
     prebuilts/vndk/v33/arm64/arch-arm-armv8-a/shared/vndk-sp/libutils.so:$(TARGET_COPY_OUT_SYSTEM)/lib/libutils-v33.so \
@@ -196,9 +195,6 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.camera.postproc@1.0.vendor \
     vendor.qti.hardware.camera.device@1.0 \
     vendor.qti.hardware.camera.device@1.0.vendor
-
-PRODUCT_PACKAGES += \
-    Aperture
 
 # Configstore
 PRODUCT_PACKAGES += \
@@ -500,7 +496,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.ims.singlereg.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.ims.singlereg.xml \
     frameworks/native/data/etc/android.hardware.telephony.mbms.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.mbms.xml \
     frameworks/native/data/etc/android.hardware.telephony.radio.access.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.radio.access.xml \
-    $(LOCAL_PATH)/configs/permissions/android.hardware.telephony.satellite.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.satellite.xml \
     frameworks/native/data/etc/android.hardware.telephony.subscription.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.telephony.subscription.xml \
     frameworks/native/data/etc/android.hardware.thread_network.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.thread_network.xml
 

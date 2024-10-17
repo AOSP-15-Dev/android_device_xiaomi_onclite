@@ -616,22 +616,55 @@ function disable_core_ctl() {
     fi
 }
 
-function enable_swap() {
-if [ ! -f /data/vendor/swap/swapfile ]; then
-    dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=2048
-else
-    current_size=$(du -m /data/vendor/swap/swapfile | cut -f1)
-    if [ "$current_size" -ne 2048 ]; then
-        rm -f /data/vendor/swap/swapfile
-        dd if=/dev/zero of=/data/vendor/swap/swapfile bs=1M count=2048
-    fi
-fi
-    chmod 660 /data/vendor/swap/swapfile
-    mkswap /data/vendor/swap/swapfile
-    swapon /data/vendor/swap/swapfile
-    setprop ro.vendor.qti.config.swap true
-    setprop persist.vendor.swapfile_enable true
+function ram_plus() {
+    # Define the swap file path and size
+    SWAPFILE=/data/vendor/swap/swapfile
+    SWAPSIZE=2048  # 2 GB
+    SWAPPERMISSIONS=660
 
+    # Function to check if the swap file exists and is the correct size
+    check_swapfile() {
+        if [ -f "$SWAPFILE" ]; then
+            # Get size in bytes using du and calculate the size in MB
+            current_size=$(du -b "$SWAPFILE" | cut -f1)
+            current_size_mb=$((current_size / 1024 / 1024))  # Convert to MB
+            
+            # Check if the current size is equal to the desired size
+            if [ "$current_size_mb" -eq "$SWAPSIZE" ]; then
+                return 0
+            else
+                return 1
+            fi
+        else
+            return 2
+        fi
+    }
+
+    # Check the swap file
+    check_swapfile
+    status=$?
+
+    # Create or recreate the swap file based on the check
+    case $status in
+        0)  # Swap file exists and is the correct size
+            ;;
+        1)  # Swap file exists but is the wrong size
+            rm -f "$SWAPFILE"
+            dd if=/dev/zero of="$SWAPFILE" bs=1M count="$SWAPSIZE"
+            ;;
+        2)  # Swap file does not exist
+            dd if=/dev/zero of="$SWAPFILE" bs=1M count="$SWAPSIZE"
+            ;;
+    esac
+
+    # Set up the swap file
+    if [ -f "$SWAPFILE" ]; then
+        chmod "$SWAPPERMISSIONS" "$SWAPFILE"
+        mkswap "$SWAPFILE"
+        swapon "$SWAPFILE"
+        setprop ro.vendor.qti.config.swap true
+        setprop persist.vendor.swapfile_enable true
+    fi
 }
 
 function configure_memory_parameters() {
@@ -769,7 +802,7 @@ else
 
     configure_read_ahead_kb_values
 
-    enable_swap
+    ram_plus
 fi
 }
 

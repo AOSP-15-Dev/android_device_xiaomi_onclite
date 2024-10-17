@@ -659,6 +659,7 @@ function ram_plus() {
 
     # Set up the swap file
     if [ -f "$SWAPFILE" ]; then
+        echo 1 > /proc/sys/vm/watermark_scale_factor
         chmod "$SWAPPERMISSIONS" "$SWAPFILE"
         mkswap "$SWAPFILE"
         swapon "$SWAPFILE" -p 10
@@ -795,10 +796,6 @@ else
 
     # Set allocstall_threshold to 0 for all targets.
     echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
-
-    # Disable wsf for all targets beacause we are using efk.
-    # wsf Range : 1..1000 So set to bare minimum value 1.
-    echo 1 > /proc/sys/vm/watermark_scale_factor
 
     configure_read_ahead_kb_values
 
@@ -4748,8 +4745,6 @@ case "$target" in
 	echo N > /sys/module/lpm_levels/L3/l3-dyn-ret/idle_enabled
         # Turn on sleep modes.
         echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
-
-	echo 120 > /proc/sys/vm/watermark_scale_factor
     ;;
 esac
 
@@ -4820,10 +4815,6 @@ case "$target" in
 	# configure input boost settings
 	echo "0:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
 	echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
-
-	# Disable wsf, beacause we are using efk.
-	# wsf Range : 1..1000 So set to bare minimum value 1.
-        echo 1 > /proc/sys/vm/watermark_scale_factor
 
         echo 0-3 > /dev/cpuset/background/cpus
         echo 0-3 > /dev/cpuset/system-background/cpus
@@ -4996,10 +4987,6 @@ case "$target" in
 	# configure input boost settings
 	echo "0:1324800" > /sys/module/cpu_boost/parameters/input_boost_freq
 	echo 120 > /sys/module/cpu_boost/parameters/input_boost_ms
-
-	# Disable wsf, beacause we are using efk.
-	# wsf Range : 1..1000 So set to bare minimum value 1.
-        echo 1 > /proc/sys/vm/watermark_scale_factor
 
         echo 0-3 > /dev/cpuset/background/cpus
         echo 0-3 > /dev/cpuset/system-background/cpus

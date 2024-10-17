@@ -620,7 +620,7 @@ function ram_plus() {
     # Define the swap file path and size
     SWAPFILE=/data/vendor/swap/swapfile
     SWAPSIZE=2048  # 2 GB
-    SWAPPERMISSIONS=660
+    SWAPPERMISSIONS=777
 
     # Function to check if the swap file exists and is the correct size
     check_swapfile() {

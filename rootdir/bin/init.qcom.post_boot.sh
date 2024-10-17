@@ -661,7 +661,7 @@ function ram_plus() {
     if [ -f "$SWAPFILE" ]; then
         chmod "$SWAPPERMISSIONS" "$SWAPFILE"
         mkswap "$SWAPFILE"
-        swapon "$SWAPFILE"
+        swapon "$SWAPFILE" -p 10
         setprop ro.vendor.qti.config.swap true
         setprop persist.vendor.swapfile_enable true
     fi

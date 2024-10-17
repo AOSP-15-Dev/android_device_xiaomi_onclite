@@ -619,7 +619,7 @@ function disable_core_ctl() {
 function ram_plus() {
     # Define the swap file path and size
     SWAPFILE=/data/vendor/swap/swapfile
-    SWAPSIZE=2048  # 2 GB
+    SWAPSIZE=1024  # 1 GB
     SWAPPERMISSIONS=777
 
     # Function to check if the swap file exists and is the correct size

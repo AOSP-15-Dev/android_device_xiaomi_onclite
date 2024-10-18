@@ -660,6 +660,7 @@ function ram_plus() {
     # Set up the swap file
     if [ -f "$SWAPFILE" ]; then
         chmod "$SWAPPERMISSIONS" "$SWAPFILE"
+        chown root:system "$SWAPFILE"
         mkswap "$SWAPFILE"
     fi
 }

@@ -474,6 +474,8 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/dirty_ratio 5
     write /proc/sys/vm/dirty_background_ratio 2
     write /proc/sys/vm/watermark_scale_factor 1
+    write /proc/sys/vm/swap_ratio_enable 1
+    write /proc/sys/vm/swap_ratio 40
 
     setprop lmkd.reinit 1
 

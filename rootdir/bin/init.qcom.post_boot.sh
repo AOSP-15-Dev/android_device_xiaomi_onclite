@@ -659,12 +659,8 @@ function ram_plus() {
 
     # Set up the swap file
     if [ -f "$SWAPFILE" ]; then
-        echo 1 > /proc/sys/vm/watermark_scale_factor
         chmod "$SWAPPERMISSIONS" "$SWAPFILE"
         mkswap "$SWAPFILE"
-        swapon "$SWAPFILE" -p 10
-        setprop ro.vendor.qti.config.swap true
-        setprop persist.vendor.swapfile_enable true
     fi
 }
 

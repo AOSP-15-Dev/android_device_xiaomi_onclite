@@ -473,6 +473,7 @@ on property:sys.boot_completed=1
     write /proc/sys/vm/vfs_cache_pressure 150
     write /proc/sys/vm/dirty_ratio 5
     write /proc/sys/vm/dirty_background_ratio 2
+    write /proc/sys/vm/watermark_scale_factor 1
 
     setprop lmkd.reinit 1
 
@@ -582,8 +583,18 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
     disabled
     oneshot
 
+service ram_plus /vendor/bin/swapon -p 10 /data/vendor/swap/swapfile
+    class late_start
+    user root
+    group root system
+    disabled
+    oneshot
+
 on property:sys.boot_completed=1
     start qcom-post-boot
+    start ram_plus
+    setprop ro.vendor.qti.config.swap true
+    setprop persist.vendor.swapfile_enable true
 
 service vendor.ril-daemon /vendor/bin/hw/rild
     override

@@ -617,51 +617,13 @@ function disable_core_ctl() {
 }
 
 function ram_plus() {
-    # Define the swap file path and size
-    SWAPFILE=/data/vendor/swap/swapfile
-    SWAPSIZE=1024  # 1 GB
-    SWAPPERMISSIONS=660
+    # Define the path of Swap folder
+    RAM_PLUS_SWAPFILE="/data/vendor/swap"
 
-    # Function to check if the swap file exists and is the correct size
-    check_swapfile() {
-        if [ -f "$SWAPFILE" ]; then
-            # Get size in bytes using du and calculate the size in MB
-            current_size=$(du -b "$SWAPFILE" | cut -f1)
-            current_size_mb=$((current_size / 1024 / 1024))  # Convert to MB
-            
-            # Check if the current size is equal to the desired size
-            if [ "$current_size_mb" -eq "$SWAPSIZE" ]; then
-                return 0
-            else
-                return 1
-            fi
-        else
-            return 2
-        fi
-    }
-
-    # Check the swap file
-    check_swapfile
-    status=$?
-
-    # Create or recreate the swap file based on the check
-    case $status in
-        0)  # Swap file exists and is the correct size
-            ;;
-        1)  # Swap file exists but is the wrong size
-            rm -f "$SWAPFILE"
-            dd if=/dev/zero of="$SWAPFILE" bs=1M count="$SWAPSIZE"
-            ;;
-        2)  # Swap file does not exist
-            dd if=/dev/zero of="$SWAPFILE" bs=1M count="$SWAPSIZE"
-            ;;
-    esac
-
-    # Set up the swap file
-    if [ -f "$SWAPFILE" ]; then
-        chmod "$SWAPPERMISSIONS" "$SWAPFILE"
-        chown root:system "$SWAPFILE"
-        mkswap "$SWAPFILE"
+    # Check if the folder exists
+    if [ -d "$RAM_PLUS_SWAPFILE" ]; then
+        # Delete the folder
+        rm -rf "$RAM_PLUS_SWAPFILE"
     fi
 }
 

@@ -465,8 +465,6 @@ on property:sys.boot_completed=1
 
     swapon_all /vendor/etc/fstab.enableswap
 
-    setprop lmkd.reinit 1
-
 on property:persist.vendor.radio.atfwd.start=false
     stop vendor.atfwd
 
@@ -575,6 +573,7 @@ service qcom-post-boot /vendor/bin/init.qcom.post_boot.sh
 
 on property:sys.boot_completed=1
     start qcom-post-boot
+    setprop lmkd.reinit 1
 
 service vendor.ril-daemon /vendor/bin/hw/rild
     override

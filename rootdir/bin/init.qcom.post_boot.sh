@@ -753,11 +753,19 @@ else
         echo 7680 > /sys/module/process_reclaim/parameters/tsk_nomap_swap_sz
     fi
 
-    # Set allocstall_threshold to 0 for all targets.
+    # Memory optimization
     echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
+    echo 60 > /proc/sys/vm/swappiness
+    echo 3 > /proc/sys/vm/drop_caches
+    echo 100 > /proc/sys/vm/vfs_cache_pressure
+    echo 5 > /proc/sys/vm/dirty_ratio
+    echo 2 > /proc/sys/vm/dirty_background_ratio
+    echo 5 > /proc/sys/vm/watermark_scale_factor
+    echo 1 > /proc/sys/vm/swap_ratio_enable
+    echo 60 > /proc/sys/vm/swap_ratio
 
+    # Enable function
     configure_read_ahead_kb_values
-
     ram_plus
 fi
 }

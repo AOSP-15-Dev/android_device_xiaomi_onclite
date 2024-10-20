@@ -625,6 +625,16 @@ function ram_plus() {
         # Delete the folder
         rm -rf "$RAM_PLUS_SWAPFILE"
     fi
+
+    if [ ! -f /data/swapfile ]; then
+        dd if=/dev/zero of=/data/swapfile bs=1G count=2
+    fi
+
+    chown root:root /data/swapfile
+    chmod 0600 /data/swapfile
+
+    mkswap /data/swapfile
+    swapon /data/swapfile
 }
 
 function configure_memory_parameters() {

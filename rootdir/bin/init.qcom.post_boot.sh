@@ -755,14 +755,8 @@ else
 
     # Memory optimization
     echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
-    echo 100 > /proc/sys/vm/swappiness
-    echo 3 > /proc/sys/vm/drop_caches
-    echo 150 > /proc/sys/vm/vfs_cache_pressure
-    echo 5 > /proc/sys/vm/dirty_ratio
-    echo 2 > /proc/sys/vm/dirty_background_ratio
-    echo 10 > /proc/sys/vm/watermark_scale_factor
-    echo 1 > /proc/sys/vm/swap_ratio_enable
-    echo 60 > /proc/sys/vm/swap_ratio
+    echo 150 > /proc/sys/vm/swappiness
+    echo 1 > /proc/sys/vm/watermark_scale_factor
     echo 1 > /sys/module/zswap/parameters/enabled
     echo z3fold > /sys/module/zswap/parameters/zpool
     echo lz4 > /sys/module/zswap/parameters/compressor
